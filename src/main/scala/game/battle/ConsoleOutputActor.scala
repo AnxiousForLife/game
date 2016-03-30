@@ -15,7 +15,7 @@ class ConsoleOutputActor extends Actor {
     val names = for (x <- state.units) yield x.name
     val hpsWithLabels = for (x <- state.units) yield hpLabel ++ x.hp.toString()
     val mpsWithLabels = for (x <- state.units) yield x.mp.map(mpLabel ++ _.toString()).getOrElse("")
-    val statuses = for (x <- state.units) yield x.status.toString()
+    val statuses = for (x <- state.units) yield x.status.toString
 
     //The length of the longest strings
     val maxNameLength = names.map(_.length()).max
@@ -26,7 +26,7 @@ class ConsoleOutputActor extends Actor {
     val lineComponentLengths = Seq(maxNameLength, maxHpLength, maxMpLength, maxStatusLength)
 
     //Length of the horizontal dividers
-    val minLineLength = (divider.length() * (lineComponentLengths.length - 1))
+    val minLineLength = divider.length() * (lineComponentLengths.length - 1)
     val totalLineLength = minLineLength + lineComponentLengths.sum
 
     //The horizontal dividers
@@ -49,9 +49,10 @@ class ConsoleOutputActor extends Actor {
       val alignedHp = hpWithLabel.split(' ').mkString(hpSpaces ++ " ")
       val alignedMp = if (mpWithLabel.length() == 0) mpSpaces else mpWithLabel.split(' ').mkString(mpSpaces ++ " ")
 
-      thickBorder ++ "\n" ++ (Array(name ++ nameSpaces, alignedHp, alignedMp, status ++ statusSpaces).mkString(divider)) ++ "\n"
+      thickBorder ++ "\n" ++ Array(name ++ nameSpaces, alignedHp, alignedMp, status ++ statusSpaces).mkString(divider) ++ "\n"
     }
 
+    //Puts all the lines together
     unitLines.reduceLeft(_ ++ _) ++ thickBorder
   }
 
