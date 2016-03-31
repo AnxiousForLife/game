@@ -1,11 +1,9 @@
 package game.battle
 
-sealed trait BattleUnitStatus
+sealed class BattleUnitStatus(str: String) { override def toString() = str }
 
-final object Waiting extends BattleUnitStatus { override def toString = "waiting"}
-final object Attacking extends BattleUnitStatus { override def toString = "attacking"}
-final object Casting extends BattleUnitStatus { override def toString = "casting"}
-final object CoolingDown extends BattleUnitStatus { override def toString = "cooling down"}
-final object Stunned extends BattleUnitStatus { override def toString = "stunned"}
-
-
+final object Waiting extends BattleUnitStatus("waiting")
+final object Attacking extends BattleUnitStatus("attacking")
+final object Casting extends BattleUnitStatus("casting")
+final object CoolingDown extends BattleUnitStatus("cooling down")
+final object Stunned extends BattleUnitStatus("stunned")
